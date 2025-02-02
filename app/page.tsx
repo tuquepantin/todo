@@ -6,7 +6,7 @@ import TodoForm from './components/TodoForm';
 import Loading from './components/Loading';
 
 const Home = () => {
-  const [todos, setTodos] = useState<any[]>([]);
+  const [todos, setTodos] = useState<any[]>([]); //@typescript-eslint/no-explicit-any
   const [loading, setLoading] = useState(false);
 
   const fetchTodos = async () => {

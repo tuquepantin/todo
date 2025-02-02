@@ -7,7 +7,7 @@ export async function GET() {
   try {
     const todos = await prisma.todo.findMany();
     return new Response(JSON.stringify(todos), { status: 200 });
-  } catch (error) {
+  } catch (error) { // eslint-disable-line @typescript-eslint/no-unused-vars
     return new Response(JSON.stringify({ error: 'Error fetching todos' }), { status: 500 });
   }
 }
@@ -20,7 +20,7 @@ export async function POST(request: Request) {
       data: { title },
     });
     return new Response(JSON.stringify(newTodo), { status: 201 });
-  } catch (error) {
+  } catch (error) {// eslint-disable-line @typescript-eslint/no-unused-vars
     return new Response(JSON.stringify({ error: 'Error creating todo' }), { status: 500 });
   }
 }
@@ -34,7 +34,7 @@ export async function PATCH(request: Request) {
       data: { completed },
     });
     return new Response(JSON.stringify(updatedTodo), { status: 200 });
-  } catch (error) {
+  } catch (error) {// eslint-disable-line @typescript-eslint/no-unused-vars
     return new Response(JSON.stringify({ error: 'Error updating todo' }), { status: 500 });
   }
 }
@@ -47,7 +47,7 @@ export async function DELETE(request: Request) {
       where: { id },
     });
     return new Response(JSON.stringify(deletedTodo), { status: 200 });
-  } catch (error) {
+  } catch (error) {// eslint-disable-line @typescript-eslint/no-unused-vars
     return new Response(JSON.stringify({ error: 'Error deleting todo' }), { status: 500 });
   }
 }

@@ -5,8 +5,15 @@ import TodoList from './components/TodoList';
 import TodoForm from './components/TodoForm';
 import Loading from './components/Loading';
 
+// Definir la interfaz para las tareas (todos)
+interface Todo {
+  id: number;
+  title: string;
+  completed: boolean;
+}
+
 const Home = () => {
-  const [todos, setTodos] = useState<any[]>([]); //@typescript-eslint/no-explicit-any
+  const [todos, setTodos] = useState<Todo[]>([]);  // Usar el tipo Todo
   const [loading, setLoading] = useState(false);
 
   const fetchTodos = async () => {
@@ -22,15 +29,13 @@ const Home = () => {
   };
 
   const addTodo = async (title: string) => {
-    
     const response = await fetch('/api/todos', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ title }),
     });
-    const newTodo = await response.json();
+    const newTodo: Todo = await response.json();  // Aseguramos que newTodo sea del tipo Todo
     setTodos([...todos, newTodo]);
-    
   };
 
   const toggleTodo = async (id: number, completed: boolean) => {
@@ -40,21 +45,19 @@ const Home = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id, completed: !completed }),
     });
-    const updatedTodo = await response.json();
+    const updatedTodo: Todo = await response.json();  // Aseguramos que updatedTodo sea del tipo Todo
     setTodos(todos.map((todo) => (todo.id === id ? updatedTodo : todo)));
     setLoading(false);
   };
 
   const deleteTodo = async (id: number) => {
-    
     const response = await fetch('/api/todos', {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id }),
     });
-    const deletedTodo = await response.json();
+    const deletedTodo: Todo = await response.json();  // Aseguramos que deletedTodo sea del tipo Todo
     setTodos(todos.filter((todo) => todo.id !== deletedTodo.id));
-    
   };
 
   useEffect(() => {
